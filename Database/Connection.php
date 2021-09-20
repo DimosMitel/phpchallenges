@@ -1,0 +1,32 @@
+<?php
+
+/*
+ * PHP coding challenges.
+ * Challenge Name: Questionnaire
+ * Myteletsis Dimos <dimos.mitel@gmail.com>
+ * The Connection class has the make() method that returns a new instance of PDO
+ */
+
+require_once 'config.php';
+
+class Connection
+{
+	public static function make( $host, $db, $user, $password )
+	{
+		$dsn = "mysql:host=$host;dbname=$db;charset=UTF8";
+
+		try {
+
+			$options = [ PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION ];
+
+			return new PDO( $dsn, $user, $password, $options );
+
+		} catch ( PDOException $e ) {
+
+			die( $e->getMessage() );
+			
+		}
+	}
+}
+
+return Connection::make( $host, $db, $user, $password );
